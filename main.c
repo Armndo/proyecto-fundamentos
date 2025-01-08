@@ -3,7 +3,7 @@
 #include <time.h> // para crear la semilla con srand para crear números aleatorios
 
 /*
- * Programa en C que permite ejectuar el juego del gato
+ * Programa en C que permite ejecutar el juego del gato
  * contra otro jugador, o contra la computadora.
  * Programó: Armando Omar González González
  * 07/01/2025
@@ -16,9 +16,9 @@ void printBoard(char** board) {
     // función void que imprime el tablero del juego
     // apuntador de apuntadores board, que nos permite imprimir cada caracter usando operaciones con apuntadores
     for (int i = 0; i < 9; i++) {
-        printf("[%c]", *(*board + i));  // accede al valor que está en el apuntador en la posición i e imprime el caracter entre corchetes
+        printf("[%c]", *(*board + i));  // accede al valor que está en el apuntador en la posición i e imprime el carácter entre corchetes
 
-        if ((i + 1) % 3 == 0) {         // cada 3 elementos agrega un salto de linea
+        if ((i + 1) % 3 == 0) {         // cada 3 elementos agrega un salto de línea
             printf("\n");
         }
     }
@@ -56,7 +56,7 @@ void fillPlayers(char** players, int* pvp, int repeat) {
     getchar();
     *players = buffer;                                      // almacenamos el valor del buffer en la primera posición del apuntador
 
-    if (*pvp == 1) {                                        // si estamos jugando contra otro jugador reinicializamos el buffer
+    if (*pvp == 1) {                                        // si estamos jugando contra otro jugador inicializamos el buffer nuevamente
         buffer = malloc(sizeof(char) * 30);
         printf("\nIntroduce el nombre del Jugador 2:\n");
         scanf(" %[^\n]", buffer);
@@ -70,7 +70,7 @@ void fillPlayers(char** players, int* pvp, int repeat) {
 }
 
 int checkWin(char* board, int flag) {
-    // funcion int que nos retorna si ganó el jugador 1 o el jugador 2, o sigue en empate el juego
+    // función int que nos retorna si ganó el jugador 1 o el jugador 2, o sigue en empate el juego
     // apuntador board, que contiene las jugadas del tablero
     // int flag, bandera que dependiendo si está en 1 o en 0 nos arroja el jugador que ganó o el patrón de la jugada ganadora
     int check = 0;
@@ -83,8 +83,8 @@ int checkWin(char* board, int flag) {
     }
 
     for (int i = 0; i < 8; i++) {           // iterando nuevamente pero ahora los posibles valores de las condiciones de victoria
-        if ((check & win[i]) == win[i]) {   // se hace un and bitwise para determinar si la máscara en check es identica a la condición de victoria
-            return flag ? win[i] : 1;       // dependiento del flag se retorna la jugada ganadora o el jugador ganador
+        if ((check & win[i]) == win[i]) {   // se hace un and bitwise para determinar si la máscara en check es idéntica a la condición de victoria
+            return flag ? win[i] : 1;       // dependiendo del flag se retorna la jugada ganadora o el jugador ganador
         }
     }
 
@@ -103,11 +103,11 @@ int checkWin(char* board, int flag) {
         }
     }
 
-    return 0;                               // se retorna 0 en caso de que el juego siga en curso o no se haya considerado a ningun ganador (empate)
+    return 0;                               // se retorna 0 en caso de que el juego siga en curso o no se haya considerado a ningún ganador (empate)
 }
 
 int checkUsed(char *board, int coord) {
-    // funcion int que determina si una coordenada ya está usada jugada
+    // función int que determina si una coordenada ya está usada jugada
     // apuntador board, que contiene las jugadas del tablero
     // int coord, que contiene la jugada que vamos a validar
     coord -= '0';                               // se resta el valor del caracter '0' para quitar el offset de los caracteres y acceder al apuntador en la posición correspondiente
@@ -146,7 +146,7 @@ int play(char* board, char** players, int* turn, int pvp) {
     // int pvp, bandera que determina si estamos jugando contra otro jugador o contra la computadora
     char coord = 0;                                                     // la coordenada a jugar se inicia en 0
     int player = *turn % 2 == 0;                                        // se determina si le toca al jugador 1 o al 2 dependiendo si el turno es non o par
-    char input = player ? 'o' : 'x';                                    // se determina el caracter que le corresponde la jugador 1 o al 2
+    char input = player ? 'o' : 'x';                                    // se determina el carácter que le corresponde la jugador 1 o al 2
 
     if (pvp == 1 || !player) {                                          // si se juega contra otro jugador o si es el turno del jugador 1 (para evitar mostrar las jugadas de la computadora)
         printBoard(&board);                                             // se imprime el tablero
@@ -218,12 +218,12 @@ int main() {
     int pvp = 0;                                                // se inicializa la bandera de jugador contra jugador en 0
     int repeat = 0;                                             // se inicializa la bandera de repetir jugadores en 0
     char** players = malloc(sizeof(char*) * 2);                 // se inicializa el apuntador de apuntadores para los nombres de los jugadores con amlloc para que contenga dos apuntadores de caracteres
-    srand(time(NULL));                                          // se inicializa la semilla para los números aleatoreos
+    srand(time(NULL));                                          // se inicializa la semilla para los números aleatorios
 
     while (playing == 1) {                                      // mientras playing esté en 1, se ejecutará el juego
         init(board, players, &turn, &state, &pvp, repeat);      // se inicializa el juego con la función init
 
-        while (turn > 0 && state == 0) {                        // mientras el turno sea mayor a 0 y el estado del juego se denote como 0
+        while (turn > 0 && state == 0) {                        // mientras el turno sea mayor a 0 y el estado del juego se denota como 0
             state = play(board, players, &turn, pvp);           // se ejecuta la función play que permite ingresar la coordenada al jugador correspondiente dependiendo del turno
             system("clear");
         }
@@ -240,13 +240,13 @@ int main() {
         }
 
         int valid = 0;                                          // se inicializa una bandera para corroborar que la entrada sea correcta
-        char sel = 'S';                                         // se inicializa el caracter selector para el menú con valor por defecto 'S'
+        char sel = 'S';                                         // se inicializa el carácter selector para el menú con valor por defecto 'S'
 
         while (!valid) {                                        // mientras no sea válido el input
             printf("Volver a jugar? S/n ");
             valid = scanf("%c", &sel);
 
-            if (sel == 'S' || sel == 's' || sel == 10) {        // verifica que el valor de sel sea 'S' o 's' o salto de linea (para que haga caso a la opción por defecto S)
+            if (sel == 'S' || sel == 's' || sel == 10) {        // verifica que el valor de sel sea 'S' o 's' o salto de línea (para que haga caso a la opción por defecto S)
                 playing = 1;                                    // mantiene la bandera del while en 1
             } else if (sel == 'N' || sel == 'n') {              // si encuentra que el valor de sel es 'N' o 'n'
                 playing = 0;                                    // cambia la bandera del while a 0 por lo cual terminará la ejecución
